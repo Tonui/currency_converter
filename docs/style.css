@@ -1,0 +1,15 @@
+#box{
+    padding: 30px 10px;
+    text-align: center;
+    margin: 0px auto;
+}
+table{
+    margin: 0px auto;
+}
+p{
+    text-align: center
+}
+#from_currency,
+#to_currency {
+    width: 180px;
+}

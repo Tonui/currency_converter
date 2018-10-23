@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#343a40">
+    <meta name="description" content="Currency converter with offline capabilities">
+    <title>Currency Converter</title>
+    <!-- custom css file -->
+    <link rel="stylesheet" href="/currency_converter/style.css">
+    <!-- bootstrap css file -->
+    <link rel="stylesheet" href="/currency_converter/bootstrap/bootstrap.min.css">
+    <!-- manifest -->
+    <link rel="manifest" href="/currency_converter/manifest.json">
+    <link rel="icon" href="/currency_converter/img/converter.jpg" type="image/jpg">
+</head>
+<body class="bg-dark text-light">
+    <div id="box" class="col-sm-12 col-md-6">
+        <h4 class="m-4">Currency Converter</h4>
+        <table>
+            <tr>
+                <td>
+                    <input id="from_amount" class="form-control" size="15" placeholder="From">
+                </td>
+                <td>
+                    <select id="from_currency" class="form-control">
+                        <option disabled selected>Select Currency</option>
+                    </select>
+                </td>
+            </tr>
+            <hr>
+            <tr>
+                <td>
+                    <input type="text" id="to_amount" disabled class="form-control" size="15" placeholder="To">
+                </td>
+                <td>
+                    <select id="to_currency" class="form-control">
+                        <option disabled selected>Select Currency</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-info m-3 btn-sm" onclick="currencyChange()">Convert</button>
+        <hr>
+        <p class="container mt-5">
+            The currency converter saves the currency rates you've loaded for offline mode<br><br>
+            &copy; Tonui 2018
+        </p>
+    </div>
+
+    <!-- JS Files -->
+    <script src="/currency_converter/idb.js"></script>
+    <script src="/currency_converter/main.js"></script>
+</body>
+</html>

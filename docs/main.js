@@ -1,5 +1,7 @@
 'use strict';
 
+var SERVER_API = '1dc818f1b1ac04792da2';
+
 // registering service worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/currency_converter/service_worker.js');
@@ -14,7 +16,7 @@ var dbPromise = idb.open('Currencies', 1, function (upgradeDB) {
 // Request JSON list of all currencies and store in idb
 var xml_request = new XMLHttpRequest();
 // open(method, url, async) - open connection
-xml_request.open('GET', 'https://free.currencyconverterapi.com/api/v6/currencies', true);
+xml_request.open('GET', 'https://free.currconv.com/api/v7/countries?apiKey=' + SERVER_API, true);
 xml_request.send(); // Send the request
 // On ready state change is property to be fired on every change of state
 /**
@@ -71,7 +73,7 @@ var currencyChange = function currencyChange() {
     var to = document.getElementById('to_currency').value;
     var query = from + '_' + to;
     var xmlhttp = new XMLHttpRequest();
-    var url = 'https://free.currencyconverterapi.com/api/v5/convert?q=' + query + '&compact=ultra';
+    var url = 'https://free.currencyconverterapi.com/api/v5/convert?q=' + query + '&compact=ultra&apiKey=' + SERVER_API;
     xmlhttp.open('GET', url, true);
     xmlhttp.send();
     xmlhttp.onreadystatechange = function () {

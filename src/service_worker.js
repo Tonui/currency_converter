@@ -46,19 +46,18 @@ self.addEventListener('fetch', event => {
                 return response;
             }
             // if we dont have the response in our cache, we cache the reponse from network
-            var requestClone = event.request.clone()
-            fetch(requestClone).then( response => {
-                if(!response){
-                    return response
-                }else {
-                    let responseClone = response.clone()
-                    caches.open(currencyCache).then( cache => {
-                        cache.put(event.request, responseClone)
-                        return response
-                    })
-                }
-            })
-            // return fetch(event.request)
+            else {
+                var requestClone = event.request.clone()
+                return fetch(requestClone).then( response => {
+                        let responseClone = response.clone()
+                        return caches.open(currencyCache).then( cache => {
+                            cache.put(event.request, responseClone)
+                            return response
+                        })
+                })
+                // return fetch(event.request)
+            }
+            
         })
     )
 })

@@ -34,18 +34,16 @@ self.addEventListener('fetch', function (event) {
             return response;
         }
         // if we dont have the response in our cache, we cache the reponse from network
-        var requestClone = event.request.clone();
-        fetch(requestClone).then(function (response) {
-            if (!response) {
-                return response;
-            } else {
-                var responseClone = response.clone();
-                caches.open(currencyCache).then(function (cache) {
-                    cache.put(event.request, responseClone);
-                    return response;
+        else {
+                var requestClone = event.request.clone();
+                return fetch(requestClone).then(function (response) {
+                    var responseClone = response.clone();
+                    return caches.open(currencyCache).then(function (cache) {
+                        cache.put(event.request, responseClone);
+                        return response;
+                    });
                 });
+                // return fetch(event.request)
             }
-        });
-        // return fetch(event.request)
     }));
 });

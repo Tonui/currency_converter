@@ -1,13 +1,14 @@
 {
     "name": "Currency Converter",
     "short_name": "Converter",
+    "scope": "/currency_converter/",
     "icons": [
         {
-            "src": "./img/converter-192-192.jpg",
+            "src": "./img/x-192-192.png",
             "sizes": "192x192"
         },
         {
-            "src": "./img/converter-512-512.jpg",
+            "src": "./img/x-512-512.png",
             "sizes": "512x512"
         }
     ],

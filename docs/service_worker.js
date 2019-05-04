@@ -4,7 +4,7 @@
 var currencyCache = 'v1';
 
 // files to cache
-var cacheFiles = ['/currency_converter/', '/currency_converter/index.html', '/currency_converter/main.js', '/currency_converter/manifest.json', '/currency_converter/idb.js', '/currency_converter/style.css', '/currency_converter/img/converter.jpg', '/currency_converter/bootstrap/bootstrap.min.css'];
+var cacheFiles = ['/currency_converter/', '/currency_converter/index.html', '/currency_converter/main.js', '/currency_converter/manifest.json', '/currency_converter/idb.js', '/currency_converter/style.css', '/currency_converter/img/converter.jpg', '/currency_converter/img/x-512-512.png', '/currency_converter/img/x-192-192.png', '/currency_converter/bootstrap/bootstrap.min.css'];
 
 // install event
 self.addEventListener('install', function (event) {

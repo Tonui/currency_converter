@@ -10,6 +10,8 @@ let cacheFiles = [
     '/currency_converter/idb.js',
     '/currency_converter/style.css',
     '/currency_converter/img/converter.jpg',
+    '/currency_converter/img/x-512-512.png',
+    '/currency_converter/img/x-192-192.png',
     '/currency_converter/bootstrap/bootstrap.min.css'
 ]
 

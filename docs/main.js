@@ -48,8 +48,8 @@ xml_request.onreadystatechange = function () {
         dbPromise.then(function (db) {
             return db.transaction('currency_names').objectStore('currency_names').getAll().then(function (all) {
                 for (var each in all) {
-                    from_currency_select.innerHTML += '<option value="' + all[each].id + '">' + all[each].currencyName + '</option>';
-                    to_currency_select.innerHTML += '<option value="' + all[each].id + '">' + all[each].currencyName + '</option>';
+                    from_currency_select.innerHTML += '<option value="' + all[each].currencyId + '">' + all[each].currencyName + '</option>';
+                    to_currency_select.innerHTML += '<option value="' + all[each].currencyId + '">' + all[each].currencyName + '</option>';
                 }
             });
         });
@@ -59,8 +59,8 @@ xml_request.onreadystatechange = function () {
             dbPromise.then(function (db) {
                 return db.transaction('currency_names').objectStore('currency_names').getAll().then(function (all) {
                     for (var each in all) {
-                        from_currency_select.innerHTML += '<option value="' + all[each].id + '">' + all[each].currencyName + '</option>';
-                        to_currency_select.innerHTML += '<option value="' + all[each].id + '">' + all[each].currencyName + '</option>';
+                        from_currency_select.innerHTML += '<option value="' + all[each].currencyId + '">' + all[each].currencyName + '</option>';
+                        to_currency_select.innerHTML += '<option value="' + all[each].currencyId + '">' + all[each].currencyName + '</option>';
                     }
                 });
             });

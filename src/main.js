@@ -7,8 +7,12 @@ if ('serviceWorker' in navigator) {
 
 // IndexedDB - opening idb
 let dbPromise = idb.open('Currencies', 2, upgradeDB => {
-    upgradeDB.createObjectStore('currency_rates') // for storing rates
-    upgradeDB.createObjectStore('currency_names', {keyPath: 'currencyId'}) // for storing names and ids objects
+    switch( upgradeDB.oldVersion ){
+        case 0:
+            upgradeDB.createObjectStore('currency_rates') // for storing rates
+        case 1:
+            upgradeDB.createObjectStore('currency_names', {keyPath: 'currencyId'}) // for storing names and ids objects
+    }
 })
 
 // Request JSON list of all currencies and store in idb

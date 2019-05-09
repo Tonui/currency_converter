@@ -1,5 +1,5 @@
 // cacheName
-let currencyCache = 'v2'
+let currencyCache = 'v1'
 
 // files to cache
 let cacheFiles = [

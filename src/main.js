@@ -8,7 +8,7 @@ if ('serviceWorker' in navigator) {
 // IndexedDB - opening idb
 let dbPromise = idb.open('Currencies', 1, upgradeDB => {
     upgradeDB.createObjectStore('currency_rates') // for storing rates
-    upgradeDB.createObjectStore('currency_names') // for storing names and ids objects
+    upgradeDB.createObjectStore('currency_names', {keyPath: 'currencyId'}) // for storing names and ids objects
 })
 
 // Request JSON list of all currencies and store in idb
@@ -37,17 +37,17 @@ xml_request.onreadystatechange = function () {
                 var the_currency_obj = currencies[currency]
                 var currency_id = currencies[currency].id
                 var currency_name = currencies[currency].currencyName
-                currency_namesStore.put(the_currency_obj, currency);
+                currency_namesStore.put(the_currency_obj);
                 // from_currency_select.innerHTML += `<option value="${currency_id}">${currency_name}</option>`
                 // to_currency_select.innerHTML += `<option value="${currency_id}">${currency_name}</option>`
             }
             return tx.complete
         })
         dbPromise.then(db => {
-            return db.transaction('currency_names').objectStore('currency_names').getAll().then((all) => {
-                for (var each in all) {
-                    from_currency_select.innerHTML += `<option value="${all[each].currencyId}">${all[each].currencyName}</option>`
-                    to_currency_select.innerHTML += `<option value="${all[each].currencyId}">${all[each].currencyName}</option>`
+            return db.transaction('currency_names').objectStore('currency_names').getAll().then((allCurrencies) => {
+                for (var each in allCurrencies) {
+                    from_currency_select.innerHTML += `<option value="${allCurrencies[each].currencyId}">${allCurrencies[each].currencyName}</option>`
+                    to_currency_select.innerHTML += `<option value="${allCurrencies[each].currencyId}">${allCurrencies[each].currencyName}</option>`
                 }
             })
         })
@@ -55,10 +55,10 @@ xml_request.onreadystatechange = function () {
     // Else if offline
     else if (xml_request.readyState !== 2 && xml_request.readyState !== 3) {
         dbPromise.then(db => {
-            return db.transaction('currency_names').objectStore('currency_names').getAll().then((all) => {
-                for (var each in all) {
-                    from_currency_select.innerHTML += `<option value="${all[each].currencyId}">${all[each].currencyName}</option>`
-                    to_currency_select.innerHTML += `<option value="${all[each].currencyId}">${all[each].currencyName}</option>`
+            return db.transaction('currency_names').objectStore('currency_names').getAll().then((allCurrencies) => {
+                for (var each in allCurrencies) {
+                    from_currency_select.innerHTML += `<option value="${allCurrencies[each].currencyId}">${allCurrencies[each].currencyName}</option>`
+                    to_currency_select.innerHTML += `<option value="${allCurrencies[each].currencyId}">${allCurrencies[each].currencyName}</option>`
                 }
             })
         })

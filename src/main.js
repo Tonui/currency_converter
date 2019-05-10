@@ -13,10 +13,13 @@ let dbPromise = idb.open('Currencies', 1, upgradeDB => {
 
 // Request JSON list of all currencies and store in idb, saved request to cache in SW
 fetch(`https://free.currconv.com/api/v7/countries?apiKey=${SERVER_API}`)
-.then( data => {
+.then( res => {
+    return res.json()
+}).then( data => {
     var from_currency_select = document.getElementById('from_currency')
     var to_currency_select = document.getElementById('to_currency')
-    var parsedData = data.json()
+
+    var parsedData = data
     console.log('Parsed data: ', parsedData)
     var currencies = parsedData.results
     console.log('Currencies: ', currencies)

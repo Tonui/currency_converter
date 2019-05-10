@@ -34,10 +34,9 @@ fetch(`https://free.currconv.com/api/v7/countries?apiKey=${SERVER_API}`)
             var the_currency_obj = currencies[currency]
             var currency_id = the_currency_obj.currencyId
             var currency_name = the_currency_obj.currencyName
-            currency_namesStore.put(the_currency_obj).then( () => {
-                from_currency_select.innerHTML += `<option value=${currency_id}>${currency_name}</option>`
-                to_currency_select.innerHTML += `<option value=${currency_id}>${currency_name}</option>`
-            })
+            currency_namesStore.put(the_currency_obj)
+            from_currency_select.innerHTML += `<option value=${currency_id}>${currency_name}</option>`
+            to_currency_select.innerHTML += `<option value=${currency_id}>${currency_name}</option>`
         }
         return tx.complete
     })

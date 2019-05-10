@@ -17,10 +17,8 @@ var dbPromise = idb.open('Currencies', 1, function (upgradeDB) {
 fetch('https://free.currconv.com/api/v7/countries?apiKey=' + SERVER_API).then(function (res) {
     return res.json();
 }).then(function (data) {
-    var parsedData = data;
-    console.log('Parsed data: ', parsedData);
-    var currencies = parsedData.results;
-    console.log('Currencies: ', currencies);
+
+    var currencies = data.results;
 
     // Save currencies to idb
     dbPromise.then(function (db) {
@@ -34,6 +32,7 @@ fetch('https://free.currconv.com/api/v7/countries?apiKey=' + SERVER_API).then(fu
         return tx.complete;
     });
 }).then(function () {
+    // Retrieve from idb
     dbPromise.then(function (db) {
         var tx = db.transaction('currency_names');
         var currencyNamesRetrieve = tx.objectStore('currency_names');
@@ -58,8 +57,10 @@ var currencyChange = function currencyChange() {
 
     // If person is online
     if (navigator.onLine) {
-        fetch('https://free.currencyconverterapi.com/api/v5/convert?q=' + query + '&compact=ultra&apiKey=' + SERVER_API).then(function (data) {
-            var jsResult = data.json();
+        fetch('https://free.currencyconverterapi.com/api/v5/convert?q=' + query + '&compact=ultra&apiKey=' + SERVER_API).then(function (res) {
+            return res.json();
+        }).then(function (data) {
+            var jsResult = data;
             var ans = jsResult[query];
             var amt_from = document.getElementById('from_amount').value;
             document.getElementById('to_amount').value = ans * amt_from;
@@ -73,7 +74,6 @@ var currencyChange = function currencyChange() {
             });
         });
     } else {
-
         // If person is offline
         dbPromise.then(function (db) {
             var currenciesStore = db.transaction('currency_rates').objectStore('currency_rates');

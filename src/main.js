@@ -16,10 +16,8 @@ fetch(`https://free.currconv.com/api/v7/countries?apiKey=${SERVER_API}`)
 .then( res => {
     return res.json()
 }).then( data => {
-    var parsedData = data
-    console.log('Parsed data: ', parsedData)
-    var currencies = parsedData.results
-    console.log('Currencies: ', currencies)
+
+    var currencies = data.results
 
     // Save currencies to idb
     dbPromise.then(db => {
@@ -33,6 +31,7 @@ fetch(`https://free.currconv.com/api/v7/countries?apiKey=${SERVER_API}`)
         return tx.complete
     })
 }).then( () => {
+    // Retrieve from idb
     dbPromise.then( db => {
         let tx = db.transaction('currency_names')
         let currencyNamesRetrieve = tx.objectStore('currency_names')
@@ -58,8 +57,11 @@ let currencyChange = () => {
     // If person is online
     if ( navigator.onLine ) {
         fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=ultra&apiKey=${SERVER_API}`)
+        .then( res => {
+            return res.json()
+        })
         .then( data => {
-            var jsResult = data.json()
+            var jsResult = data
             var ans = jsResult[query]
             var amt_from = document.getElementById('from_amount').value
             document.getElementById('to_amount').value = ans * amt_from
@@ -73,7 +75,6 @@ let currencyChange = () => {
             })
         })
     } else {
-
         // If person is offline
         dbPromise.then(db => {
             let currenciesStore = db.transaction('currency_rates').objectStore('currency_rates')

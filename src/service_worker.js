@@ -1,5 +1,5 @@
 // cacheName
-let currencyCache = 'v1'
+let currencyCache = 'v3'
 
 // files to cache
 let cacheFiles = [
@@ -12,7 +12,8 @@ let cacheFiles = [
     '/currency_converter/img/converter.jpg',
     '/currency_converter/img/x-512-512.png',
     '/currency_converter/img/x-192-192.png',
-    '/currency_converter/bootstrap/bootstrap.min.css'
+    '/currency_converter/bootstrap/bootstrap.min.css',
+    'https://free.currconv.com/api/v7/countries?apiKey=1dc818f1b1ac04792da2'
 ]
 
 // install event

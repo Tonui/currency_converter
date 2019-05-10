@@ -16,9 +16,6 @@ fetch(`https://free.currconv.com/api/v7/countries?apiKey=${SERVER_API}`)
 .then( res => {
     return res.json()
 }).then( data => {
-    var from_currency_select = document.getElementById('from_currency')
-    var to_currency_select = document.getElementById('to_currency')
-
     var parsedData = data
     console.log('Parsed data: ', parsedData)
     var currencies = parsedData.results
@@ -31,13 +28,24 @@ fetch(`https://free.currconv.com/api/v7/countries?apiKey=${SERVER_API}`)
         console.log('Checkpoint: idbThen')
         for (var currency in currencies) {
             var the_currency_obj = currencies[currency]
-            var currency_id = the_currency_obj.currencyId
-            var currency_name = the_currency_obj.currencyName
-            from_currency_select.innerHTML += `<option value="${currency_id}">${currency_name}</option>`
-            to_currency_select.innerHTML += `<option value="${currency_id}">${currency_name}</option>`
             currency_namesStore.put(the_currency_obj)
         }
         return tx.complete
+    })
+}).then( () => {
+    dbPromise.then( db => {
+        let tx = db.transaction('currency_names')
+        let currencyNamesRetrieve = tx.objectStore('currency_names')
+        return currencyNamesRetrieve.getAll()
+    }).then( theCurrencies => {
+        var from_currency_select = document.getElementById('from_currency')
+        var to_currency_select = document.getElementById('to_currency')
+        for ( var index in theCurrencies ) {
+            let itsID = theCurrencies[index].currencyId
+            let itsName = theCurrencies[index].currencyName
+            from_currency_select.innerHTML += `<option value="${itsID}">${itsName}</option>`
+            to_currency_select.innerHTML += `<option value="${itsID}">${itsName}</option>`
+        }
     })
 })
 
